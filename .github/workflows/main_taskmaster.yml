@@ -25,6 +25,8 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+            NODE_OPTIONS: --openssl-legacy-provider
         
 
       - name: Zip artifact for deployment
