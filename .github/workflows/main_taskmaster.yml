@@ -61,4 +61,4 @@ jobs:
           app-name: 'taskmaster'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3339BEEFF10C4D1891E6E9C66870F565 }}
-          package: .
+          package: './build'
