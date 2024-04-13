@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - taskmaster
 
 on:
@@ -27,10 +24,9 @@ jobs:
           npm run build
         env:
             NODE_OPTIONS: --openssl-legacy-provider
-        
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+      - name: Zip build artifacts for deployment
+        run: zip -r release.zip build/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -52,13 +48,13 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip release.zip -d deployment
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'taskmaster'
-          slot-name: 'Production'
+          slot-name: 'production'  
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3339BEEFF10C4D1891E6E9C66870F565 }}
-          package: './build'
+          package: './deployment/build' 
